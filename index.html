@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style type="text/css">
+*{margin: 0;padding: 0;}
+ul,ol{list-style: none;}
+.play{width: 500px;height: 281px;border:1px solid #ccc;margin: 100px auto;position: relative;: hidden;overflow: hidden;}
+.play ul{height: 281px;position: absolute;top:0; left:0px;}
+.play ul li{float: left;}
+.play ul li img{width: 500px;height: 281px;}
+.play ol{width: 65px;height: 22px;position: absolute;bottom:3px;left:220px;}
+.play ol li{width:8px;height: 8px; border:1px solid #000;border-radius: 50%;display: inline-block;}
+.play button{position: absolute;font-size: 40px;top:115px;display: none;}
+.play button.prev{left: 10px;}
+.play button.next{right: 10px;}
+.bg{background: red;}
+</style>
+</head>
+<body>
+	<div class="play">
+		<ul id="img">
+			<li><img src="" alt=""></li>
+			<li><img src="" alt=""></li>
+			<li><img src="" alt=""></li>
+		</ul>
+		<ol id="bj">
+			<li></li>
+			<li></li>
+			<li></li>
+		</ol>
+		<button class="prev"> &lt; </button>
+		<button class="next"> &gt; </button>
+	</div>
+
+
+	<script>
+		
+		var i = 0;
+		var firstImg = $('#img li').first().clone();
+		$('#img').append(firstImg).width($('#img li').length * $('.play').width());
+		$('.next').click(function(){
+			i++;
+			moveImg();
+		})
+		$('.prev').click(function(){
+			i--;
+			moveImg();
+		})
+
+		function autoPlay(){
+			autoplayTime = setInterval(function(){
+				i++;
+				moveImg();
+			},autoTime)
+		}
+
+
+
+
+		function moveImg(){
+			if(i==$('#img li').length){
+				$('#img').css({left:0})
+				i = 1;
+			}
+			if(i==-1){
+				$('#img').css({left:-($('#img li').length-1)*$('.play').width()})
+				i = $('#img li').length-2;
+			}
+			if(i == $('#img li').length-1){
+				$('#bj li').removeClass('bg');
+				$('#bj li').eq(0),addClass('bg');
+
+			}else{
+				$('#bj li').removeClass('bg');
+				$('#bj li').eq(i).addClass('bg');
+			}
+
+
+			$('#img').stop().animate({left:$('play').width()*-i},1000)
+		}
+
+
+	</script>
+
+</body>
+</html>
